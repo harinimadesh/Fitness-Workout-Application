@@ -1,11 +1,11 @@
 # Frontend (React)
-frontend/node_modules/
-frontend/build/
-frontend/.env
+fit-frontend/node_modules/
+fit-frontend/build/
+fit-frontend/.env
 
 # Backend (Spring Boot)
-backend/target/
-backend/*.log
+fit-backend/target/
+fit-backend/*.log
 
 # IDE and OS
 .idea/
