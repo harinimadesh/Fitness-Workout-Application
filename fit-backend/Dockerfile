@@ -1,14 +1,14 @@
-# Use OpenJDK 17 as base image
-FROM eclipse-temurin:17-jdk
+# Use OpenJDK 17 with Maven
+FROM maven:3.9.4-eclipse-temurin-17
 
 # Set working directory
 WORKDIR /app
 
-# Copy built JAR from local build context
-COPY target/*.jar app.jar
+# Copy source code
+COPY . .
 
-# Expose port (optional)
-EXPOSE 8080
+# Build the project
+RUN ./mvnw clean package -DskipTests
 
 # Run the Spring Boot app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/*.jar"]
