@@ -6,6 +6,7 @@ fit-frontend/.env
 # Backend (Spring Boot)
 fit-backend/target/
 fit-backend/*.log
+fit-backend/.mvn/wrapper/maven-wrapper.jar
 
 # IDE and OS
 .idea/
