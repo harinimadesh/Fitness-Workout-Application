@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     role: "user",
