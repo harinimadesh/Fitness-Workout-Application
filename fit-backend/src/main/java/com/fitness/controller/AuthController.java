@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://fitness-workout-sigma.vercel.app")
 public class AuthController {
 
     private final UserService userService;
@@ -47,9 +47,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("message", "Email already exists"));
         }
-        // ✅ Normalize role before saving
-        user.setRole(user.getRole());
+        user.setRole(user.getRole()); // normalize role
         User saved = userService.save(user);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(Map.of("message", "User registered successfully", "user", saved));
     }
 }
