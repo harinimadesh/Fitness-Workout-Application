@@ -11,7 +11,7 @@ function DietPieChart({ userId }) {
 
   useEffect(() => {
     if (!userId) return;
-    axios.get(`http://localhost:8080/api/diets/user/${userId}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/diets/user/${userId}`)
       .then(res => setDietData(res.data))
       .catch(err => console.error("Error fetching diet data:", err));
   }, [userId]);

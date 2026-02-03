@@ -14,7 +14,7 @@ function UserProfile({ auth }) {
 
   useEffect(() => {
     if (!auth?.id) return;
-    axios.get(`http://localhost:8080/api/users/${auth.id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${auth.id}`)
       .then(res => setForm(res.data))
       .catch(err => console.error("Error fetching profile:", err));
   }, [auth]);
@@ -24,7 +24,7 @@ function UserProfile({ auth }) {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/users", { ...form, id: auth.id });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users`, { ...form, id: auth.id });
       alert("Profile updated!");
     } catch (err) {
       console.error("Error saving profile:", err);

@@ -7,20 +7,20 @@ function UserWorkouts({ auth }) {
 
   useEffect(() => {
     if (!auth?.id) return;
-    axios.get(`http://localhost:8080/api/workouts/user/${auth.id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts/user/${auth.id}`)
       .then(res => setWorkouts(res.data))
       .catch(err => console.error("Error fetching workouts:", err));
   }, [auth.id]);
 
   const markDone = (id) => {
-    axios.get(`http://localhost:8080/api/workouts/${id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts/${id}`)
       .then(res => {
         const updatedWorkout = { ...res.data, done: true };
-        return axios.post("http://localhost:8080/api/workouts", updatedWorkout);
+        return axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts`, updatedWorkout);
       })
       .then(() => {
         // Refresh workouts after update
-        return axios.get(`http://localhost:8080/api/workouts/user/${auth.id}`);
+        return axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts/user/${auth.id}`);
       })
       .then(res => setWorkouts(res.data))
       .catch(err => console.error("Error updating workout:", err));

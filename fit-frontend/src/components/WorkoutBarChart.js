@@ -10,7 +10,7 @@ function WorkoutBarChart({ userId }) {
 
   useEffect(() => {
     if (!userId) return;
-    axios.get(`http://localhost:8080/api/workouts/user/${userId}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts/user/${userId}`)
       .then(res => setWorkouts(res.data))
       .catch(err => console.error("Error fetching workouts:", err));
   }, [userId]);

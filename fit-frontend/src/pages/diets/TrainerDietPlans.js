@@ -12,14 +12,14 @@ function TrainerDietPlans({ auth }) {
   useEffect(() => {
     if (!auth?.id) return;
     // ✅ Load only mapped USER-role clients
-    axios.get(`http://localhost:8080/api/users/trainer/${auth.id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/trainer/${auth.id}`)
       .then(res => setClients(res.data.filter(c => c.role === "user" || c.role === "USER")))
       .catch(err => console.error("Error fetching clients:", err));
   }, [auth.id]);
 
   useEffect(() => {
     if (!assignedUser) return setUserBmi(null);
-    axios.get(`http://localhost:8080/api/bmi/user/${assignedUser}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/bmi/user/${assignedUser}`)
       .then(res => setUserBmi(res.data.length ? res.data[res.data.length - 1] : null))
       .catch(err => console.error("Error fetching user BMI:", err));
   }, [assignedUser]);
@@ -34,7 +34,7 @@ function TrainerDietPlans({ auth }) {
       foodItem,
       calories: Number(calories),
     };
-    axios.post("http://localhost:8080/api/diets", payload)
+    axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/diets`, payload)
       .then(() => {
         setFoodItem(""); setCalories("");
         alert("Diet plan assigned and updated in user chart!");

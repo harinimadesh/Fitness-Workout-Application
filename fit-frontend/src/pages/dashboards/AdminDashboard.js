@@ -12,18 +12,18 @@ function AdminDashboard() {
 
   useEffect(() => {
     // ✅ Fetch only user-role accounts
-    axios.get("http://localhost:8080/api/users/role/user").then(res => setUsers(res.data));
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/role/user`).then(res => setUsers(res.data));
     // ✅ Fetch only trainer-role accounts
-    axios.get("http://localhost:8080/api/users/role/trainer").then(res => setTrainers(res.data));
-    axios.get("http://localhost:8080/api/workouts").then(res => setWorkouts(res.data));
-    axios.get("http://localhost:8080/api/diets").then(res => setDiets(res.data));
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/role/trainer`).then(res => setTrainers(res.data));
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts`).then(res => setWorkouts(res.data));
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/diets`).then(res => setDiets(res.data));
     // ✅ Fetch all trainer–user mappings for admin
-    axios.get("http://localhost:8080/api/trainer-clients/all").then(res => setMappings(res.data));
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/trainer-clients/all`).then(res => setMappings(res.data));
   }, []);
 
   const clearSection = (endpoint, label) => {
     if (!window.confirm(`Clear all ${label}?`)) return;
-    axios.delete(`http://localhost:8080/api/${endpoint}/all`)
+    axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${endpoint}/all`)
       .then(() => {
         alert(`${label} cleared.`);
         window.location.reload();

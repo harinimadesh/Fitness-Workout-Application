@@ -13,7 +13,7 @@ function TrainerWorkouts({ auth }) {
   useEffect(() => {
     if (!auth?.id) return;
     // ✅ Load mapped clients and filter to USER role only
-    axios.get(`http://localhost:8080/api/users/trainer/${auth.id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/trainer/${auth.id}`)
       .then(res => {
         const userClients = res.data.filter(c => c.role === "user" || c.role === "USER");
         setClients(userClients);
@@ -24,7 +24,7 @@ function TrainerWorkouts({ auth }) {
   useEffect(() => {
     if (!assignedUser) return setUserBmi(null);
     // ✅ Fetch latest BMI for selected user
-    axios.get(`http://localhost:8080/api/bmi/user/${assignedUser}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/bmi/user/${assignedUser}`)
       .then(res => setUserBmi(res.data.length ? res.data[res.data.length - 1] : null))
       .catch(err => console.error("Error fetching user BMI:", err));
   }, [assignedUser]);
@@ -43,7 +43,7 @@ function TrainerWorkouts({ auth }) {
       done: false,
     };
 
-    axios.post("http://localhost:8080/api/workouts", payload)
+    axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workouts`, payload)
       .then(() => {
         setExercise(""); setSets(""); setReps(""); setDuration("");
         alert("Workout assigned!");
