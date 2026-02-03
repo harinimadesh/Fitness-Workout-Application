@@ -17,35 +17,39 @@ function Register() {
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form,
+        age: form.age ? parseInt(form.age) : null,
+        height: form.height ? parseInt(form.height) : null,
+        weight: form.weight ? parseInt(form.weight) : null,
+      }),
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    let data = {};
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          age: form.age ? parseInt(form.age) : null,
-          height: form.height ? parseInt(form.height) : null,
-          weight: form.weight ? parseInt(form.weight) : null,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.message || "Registration failed");
-        return;
-      }
-
-      alert("Registered successfully! Please login.");
-      navigate("/");
-    } catch (err) {
-      console.error("Registration error:", err);
-      alert("Registration failed: " + err.message);
+      data = await response.json();
+    } catch {
+      data = { message: "No JSON returned" };
     }
-  };
+
+    if (!response.ok) {
+      alert(data.message || "Registration failed");
+      return;
+    }
+
+    alert("Registered successfully! Please login.");
+    navigate("/");
+  } catch (err) {
+    console.error("Registration error:", err);
+    alert("Registration failed: " + err.message);
+  }
+};
 
   return (
     <div className="container">
