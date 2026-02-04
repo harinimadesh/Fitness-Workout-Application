@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Trigger Vercel rebuild
 function Register() {
-  console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+  console.log("API Base URL:", process.env.REACT_APP_API_BASE_URL);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     role: "user",
@@ -21,7 +21,7 @@ function Register() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
