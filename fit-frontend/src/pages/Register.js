@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Trigger Vercel rebuild
+
 function Register() {
   console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
   const navigate = useNavigate();
